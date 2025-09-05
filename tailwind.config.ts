@@ -52,6 +52,26 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
+				'section-a': {
+					DEFAULT: 'hsl(var(--section-a))',
+					foreground: 'hsl(var(--section-a-foreground))',
+					light: 'hsl(var(--section-a-light))'
+				},
+				'section-b': {
+					DEFAULT: 'hsl(var(--section-b))',
+					foreground: 'hsl(var(--section-b-foreground))',
+					light: 'hsl(var(--section-b-light))'
+				},
+				'section-c': {
+					DEFAULT: 'hsl(var(--section-c))',
+					foreground: 'hsl(var(--section-c-foreground))',
+					light: 'hsl(var(--section-c-light))'
+				},
+				holiday: {
+					DEFAULT: 'hsl(var(--holiday))',
+					foreground: 'hsl(var(--holiday-foreground))',
+					light: 'hsl(var(--holiday-light))'
+				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',
@@ -62,6 +82,20 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				}
+			},
+			backgroundImage: {
+				'gradient-academic': 'var(--gradient-academic)',
+				'gradient-section-a': 'var(--gradient-section-a)',
+				'gradient-section-b': 'var(--gradient-section-b)',
+				'gradient-section-c': 'var(--gradient-section-c)',
+				'gradient-holiday': 'var(--gradient-holiday)',
+			},
+			boxShadow: {
+				'academic': 'var(--shadow-academic)',
+				'card': 'var(--shadow-card)',
+			},
+			transitionProperty: {
+				'smooth': 'var(--transition-smooth)',
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
