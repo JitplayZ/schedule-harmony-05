@@ -51,28 +51,54 @@ const ScheduleTable = ({ schedule, section, className }: ScheduleTableProps) => 
   return (
     <Card className={cn("shadow-card", className)}>
       <CardHeader className={cn("text-white", styles.gradient)}>
-        <CardTitle className="text-2xl font-bold">
+        <CardTitle className="text-xl sm:text-2xl font-bold">
           Section {section} - Weekly Schedule
         </CardTitle>
       </CardHeader>
       <CardContent className="p-0">
-        <div className="overflow-x-auto">
+        {/* Mobile Card View */}
+        <div className="block md:hidden">
+          {schedule.map((daySchedule, dayIndex) => (
+            <div key={dayIndex} className="border-b border-border last:border-b-0">
+              <div className={cn("px-4 py-3 font-semibold text-sm", styles.bg, styles.text)}>
+                {daySchedule.day}
+              </div>
+              <div className="space-y-3 p-4">
+                {daySchedule.subjects.map((subject, subjectIndex) => (
+                  <div key={subjectIndex} className="bg-muted/30 rounded-lg p-3">
+                    <div className="font-medium text-foreground text-sm mb-1">
+                      {subject.name}
+                    </div>
+                    <div className="grid grid-cols-2 gap-2 text-xs text-muted-foreground">
+                      <div>⏰ {subject.time}</div>
+                      <div>📍 {subject.room}</div>
+                      <div className="col-span-2">👨‍🏫 {subject.instructor}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Desktop Table View */}
+        <div className="hidden md:block overflow-x-auto">
           <table className="w-full">
             <thead>
               <tr className={cn("border-b", styles.bg)}>
-                <th className="px-6 py-4 text-left font-semibold text-foreground">
+                <th className="px-4 lg:px-6 py-4 text-left font-semibold text-foreground text-sm">
                   Day
                 </th>
-                <th className="px-6 py-4 text-left font-semibold text-foreground">
+                <th className="px-4 lg:px-6 py-4 text-left font-semibold text-foreground text-sm">
                   Subject
                 </th>
-                <th className="px-6 py-4 text-left font-semibold text-foreground">
+                <th className="px-4 lg:px-6 py-4 text-left font-semibold text-foreground text-sm">
                   Time
                 </th>
-                <th className="px-6 py-4 text-left font-semibold text-foreground">
+                <th className="px-4 lg:px-6 py-4 text-left font-semibold text-foreground text-sm">
                   Instructor
                 </th>
-                <th className="px-6 py-4 text-left font-semibold text-foreground">
+                <th className="px-4 lg:px-6 py-4 text-left font-semibold text-foreground text-sm">
                   Room
                 </th>
               </tr>
@@ -87,7 +113,7 @@ const ScheduleTable = ({ schedule, section, className }: ScheduleTableProps) => 
                     {subjectIndex === 0 && (
                       <td
                         className={cn(
-                          "px-6 py-4 font-semibold border-r border-border",
+                          "px-4 lg:px-6 py-4 font-semibold border-r border-border text-sm",
                           styles.text
                         )}
                         rowSpan={daySchedule.subjects.length}
@@ -95,16 +121,16 @@ const ScheduleTable = ({ schedule, section, className }: ScheduleTableProps) => 
                         {daySchedule.day}
                       </td>
                     )}
-                    <td className="px-6 py-4 font-medium text-foreground">
+                    <td className="px-4 lg:px-6 py-4 font-medium text-foreground text-sm">
                       {subject.name}
                     </td>
-                    <td className="px-6 py-4 text-muted-foreground">
+                    <td className="px-4 lg:px-6 py-4 text-muted-foreground text-sm">
                       {subject.time}
                     </td>
-                    <td className="px-6 py-4 text-muted-foreground">
+                    <td className="px-4 lg:px-6 py-4 text-muted-foreground text-sm">
                       {subject.instructor}
                     </td>
-                    <td className="px-6 py-4 text-muted-foreground">
+                    <td className="px-4 lg:px-6 py-4 text-muted-foreground text-sm">
                       {subject.room}
                     </td>
                   </tr>

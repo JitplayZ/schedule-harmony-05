@@ -1,9 +1,13 @@
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
-import { Calendar, BookOpen, Home } from "lucide-react";
+import { Calendar, BookOpen, Home, Menu, X } from "lucide-react";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
 
 const Navigation = () => {
   const location = useLocation();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navItems = [
     { path: "/", label: "Home", icon: Home },
@@ -37,13 +41,17 @@ const Navigation = () => {
               <div className="bg-gradient-academic p-2 rounded-lg">
                 <BookOpen className="h-6 w-6 text-white" />
               </div>
-              <span className="text-xl font-bold text-foreground">
+              <span className="text-lg sm:text-xl font-bold text-foreground hidden sm:block">
                 College Schedule Manager
+              </span>
+              <span className="text-lg font-bold text-foreground sm:hidden">
+                Schedule
               </span>
             </Link>
           </div>
           
-          <div className="flex items-center space-x-4">
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center space-x-2">
             {navItems.map(({ path, label, icon: Icon }) => {
               const isActive = location.pathname === path;
               return (
@@ -51,7 +59,7 @@ const Navigation = () => {
                   key={path}
                   to={path}
                   className={cn(
-                    "flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-300",
+                    "flex items-center space-x-2 px-3 py-2 rounded-lg transition-all duration-300 text-sm",
                     isActive
                       ? getSectionStyle(path)
                       : "text-muted-foreground hover:text-foreground hover:bg-accent"
@@ -62,8 +70,53 @@ const Navigation = () => {
                 </Link>
               );
             })}
+            <ThemeToggle />
+          </div>
+
+          {/* Mobile Navigation Button */}
+          <div className="md:hidden flex items-center space-x-2">
+            <ThemeToggle />
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="h-9 w-9"
+            >
+              {isMobileMenuOpen ? (
+                <X className="h-5 w-5" />
+              ) : (
+                <Menu className="h-5 w-5" />
+              )}
+            </Button>
           </div>
         </div>
+
+        {/* Mobile Navigation Menu */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden border-t border-border bg-card">
+            <div className="px-2 pt-2 pb-3 space-y-1">
+              {navItems.map(({ path, label, icon: Icon }) => {
+                const isActive = location.pathname === path;
+                return (
+                  <Link
+                    key={path}
+                    to={path}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className={cn(
+                      "flex items-center space-x-3 px-3 py-3 rounded-lg transition-all duration-300",
+                      isActive
+                        ? getSectionStyle(path)
+                        : "text-muted-foreground hover:text-foreground hover:bg-accent"
+                    )}
+                  >
+                    <Icon className="h-5 w-5" />
+                    <span className="font-medium">{label}</span>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        )}
       </div>
     </nav>
   );

@@ -31,46 +31,47 @@ const Holidays = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex justify-between items-center mb-8">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 sm:mb-8 gap-4">
           <div>
-            <h1 className="text-4xl font-bold text-foreground mb-2">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-2">
               Holiday Calendar
             </h1>
-            <p className="text-muted-foreground text-lg">
+            <p className="text-muted-foreground text-base sm:text-lg">
               Academic year holidays and important dates
             </p>
           </div>
           <Button
             onClick={handlePrint}
             variant="outline"
-            className="flex items-center space-x-2"
+            className="flex items-center space-x-2 text-sm sm:text-base"
           >
             <Printer className="h-4 w-4" />
-            <span>Print Calendar</span>
+            <span className="hidden sm:inline">Print Calendar</span>
+            <span className="sm:hidden">Print</span>
           </Button>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {sortedHolidays.map((holiday, index) => (
             <Card key={index} className="shadow-card hover:shadow-academic transition-shadow duration-300">
               <CardHeader className="pb-3">
-                <div className="flex items-start justify-between">
-                  <div className="flex items-center space-x-2">
-                    <Calendar className="h-5 w-5 text-holiday" />
-                    <CardTitle className="text-lg">{holiday.name}</CardTitle>
+                <div className="flex items-start justify-between gap-2">
+                  <div className="flex items-center space-x-2 min-w-0 flex-1">
+                    <Calendar className="h-4 w-4 sm:h-5 sm:w-5 text-holiday flex-shrink-0" />
+                    <CardTitle className="text-sm sm:text-base lg:text-lg leading-tight">{holiday.name}</CardTitle>
                   </div>
-                  <Badge className={getHolidayBadgeVariant(holiday.type)}>
+                  <Badge className={`${getHolidayBadgeVariant(holiday.type)} text-xs flex-shrink-0`}>
                     {holiday.type}
                   </Badge>
                 </div>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
-                  <div className="text-2xl font-bold text-holiday">
+                  <div className="text-lg sm:text-xl lg:text-2xl font-bold text-holiday">
                     {format(parseISO(holiday.date), "MMM dd, yyyy")}
                   </div>
-                  <div className="text-sm text-muted-foreground leading-relaxed">
+                  <div className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
                     {holiday.description}
                   </div>
                 </div>
